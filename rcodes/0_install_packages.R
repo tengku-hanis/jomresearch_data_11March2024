@@ -1,3 +1,3 @@
-somepackage <- c("tidyverse", "summarytools", "gtsummary", "DescTools")
+somepackage <- c("tidyverse", "summarytools", "gtsummary", "DescTools", "car")
 
 install.packages(somepackage)
