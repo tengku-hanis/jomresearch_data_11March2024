@@ -94,7 +94,7 @@ sum(out_data > 1)
 
 # Multicollinearity -------------------------------------------------------
 
-car::vif(prefinal_mod) # al GVIF < 10, no MC
+car::vif(prefinal_mod) #all aGSIF should be < 3.16 
 
 
 # Model fit ---------------------------------------------------------------
