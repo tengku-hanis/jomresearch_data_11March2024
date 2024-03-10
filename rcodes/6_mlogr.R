@@ -53,7 +53,7 @@ back <- step(full_mod, direction = "backward")
 # both = step(full_mod, direction = "both")
 # summary(both)
 
-AIC(forw, back) #both and back has the lowest AIC, also can look at adjusted R^2
+AIC(forw, back) #both and back has the lowest AIC
 
 prefinal_mod <- back
 summary(prefinal_mod)
@@ -108,6 +108,9 @@ hoslem.test(prefinal_mod$y, fitted(prefinal_mod), g=10)
 # 3) ROC-AUC
 roc_curve <- roc(prefinal_mod$y, fitted(prefinal_mod), ci = T, percent = T)
 plot(roc_curve, print.auc = T)
+
+# 4) Pseudo R^2
+PseudoR2(prefinal_mod, which = c("Nagel", "CoxSnell"))
 
 # Final model -------------------------------------------------------------
 

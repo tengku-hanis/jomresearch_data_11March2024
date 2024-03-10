@@ -137,6 +137,7 @@ final_mod %>%
     label = list(sepal_width ~ "Sepal Width",
                  petal_width ~ "Petal Width",
                  species ~ "Species"),
+    estimate_fun = purrr::partial(style_ratio, digits = 2),
     pvalue_fun = function (x) style_pvalue(x, digits = 3)
   )
 

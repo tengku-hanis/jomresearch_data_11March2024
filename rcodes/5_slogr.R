@@ -59,6 +59,9 @@ hoslem.test(slogr_mod$y, fitted(slogr_mod), g=10)
 roc_curve <- roc(slogr_mod$y, fitted(slogr_mod), ci = T, percent = T)
 plot(roc_curve, print.auc = T)
 
+# 4) Pseudo R^2
+PseudoR2(slogr_mod, which = c("Nagel", "CoxSnell"))
+
 # Final model -------------------------------------------------------------
 
 summary(slogr_mod)
