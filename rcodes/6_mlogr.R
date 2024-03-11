@@ -12,6 +12,7 @@ library(readstata13) #read stata data
 library(QuantPsyc) #classification table
 library(ResourceSelection) #hosmer-lemeshow test
 library(pROC) #roc-auc
+library(DescTools) #pseudoR2
 
 
 # Data --------------------------------------------------------------------
@@ -50,10 +51,11 @@ forw <- step(zero_mod, scope = ~ gre + gpa + rank, direction = "forward")
 back <- step(full_mod, direction = "backward")
 
 #3) Stepwise
-# both = step(full_mod, direction = "both")
+# both <- step(full_mod, direction = "both")
 # summary(both)
 
-AIC(forw, back) #both and back has the lowest AIC
+AIC(forw, back) #forward and back has the lowest AIC
+BIC(forw,back)
 
 prefinal_mod <- back
 summary(prefinal_mod)
@@ -117,6 +119,8 @@ PseudoR2(prefinal_mod, which = c("Nagel", "CoxSnell"))
 final_mod <- prefinal_mod 
 summary(final_mod)
 
+cbind(exp(final_mod$coefficients), exp(confint(final_mod))) %>% 
+  round(digits = 2)
 
 # More advanced -----------------------------------------------------------
 
