@@ -41,8 +41,27 @@ spearman_data %>%
 shapiro.test(spearman_data$Rape)
 LillieTest(spearman_data$Rape)
 
+shapiro.test(spearman_data$Assault)
+LillieTest(spearman_data$Assault)
 
-# Pearson correlation -----------------------------------------------------
+## Linearity ----
+
+spearman_data %>% 
+  ggplot(aes(Rape, Assault)) +
+  geom_point()
+
+## Outliers ----
+
+spearman_data %>% 
+  ggplot(aes(Murder)) +
+  geom_boxplot()
+
+spearman_data %>% 
+  ggplot(aes(Assault)) +
+  geom_boxplot()
+
+
+# Spearman correlation -----------------------------------------------------
 
 cor.test(spearman_data$Rape, spearman_data$Assault, method = "spearman")
 
