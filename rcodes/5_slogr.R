@@ -12,6 +12,7 @@ library(readstata13) #read stata data
 library(QuantPsyc) #classification table
 library(ResourceSelection) #hosmer-lemeshow test
 library(pROC) #roc-auc
+library(DescTools) #pseudoR2
 
 
 # Data --------------------------------------------------------------------
@@ -50,7 +51,7 @@ update(slogr_mod, .~. + LNgpa) %>%
 # Model fit ---------------------------------------------------------------
 
 # 1) Classification table
-ClassLog(slogr_mod, log_data$admit) 
+ClassLog(slogr_mod, slogr_mod$y) 
 
 # 2) Hosmer-lemeshow test
 hoslem.test(slogr_mod$y, fitted(slogr_mod), g=10)
@@ -60,11 +61,13 @@ roc_curve <- roc(slogr_mod$y, fitted(slogr_mod), ci = T, percent = T)
 plot(roc_curve, print.auc = T)
 
 # 4) Pseudo R^2
-PseudoR2(slogr_mod, which = c("Nagel", "CoxSnell"))
+PseudoR2(slogr_mod, which = c("CoxSnell", "Nagel"))
 
 # Final model -------------------------------------------------------------
 
 summary(slogr_mod)
+cbind(exp(slogr_mod$coefficients), exp(confint(slogr_mod))) %>% 
+  round(digits = 2)
 
 
 # More advanced -----------------------------------------------------------
