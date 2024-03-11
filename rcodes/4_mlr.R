@@ -29,6 +29,7 @@ skimr::skim(lr_data)
 freq(lr_data$species)
 descr(lr_data %>% select(-species))
 
+
 # Univariable analysis ----------------------------------------------------
 
 zero_mod <- lm(sepal_length ~ 1, data = lr_data)
@@ -50,10 +51,11 @@ forw <- step(zero_mod, scope =~ sepal_width + petal_width + species, direction =
 back <- step(full_mod, direction = "backward")
 
 #3) Stepwise
-# both = step(full_mod, direction = "both")
+# both <- step(full_mod, direction = "both")
 # summary(both)
 
 AIC(forw, back) #both and back has the lowest AIC, also can look at adjusted R^2
+BIC(forw, back)
 
 prefinal_mod <- back
 summary(prefinal_mod)
@@ -125,6 +127,7 @@ summary(prefinal_mod)
 
 final_mod <- prefinal_mod
 summary(final_mod)
+confint(final_mod) %>% round(digits = 2)
 
 
 # More advanced -----------------------------------------------------------
