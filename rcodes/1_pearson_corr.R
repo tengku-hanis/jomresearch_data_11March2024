@@ -15,7 +15,7 @@ library(DescTools) #lillie test
 pearson_data <- read.csv("data/correlation.csv")
 
 
-# Normality ---------------------------------------------------------------
+# Assumptions ---------------------------------------------------------------
 
 ## Normality ----
 # 1. Visually
@@ -40,6 +40,25 @@ pearson_data %>%
 # 2. Statistical tests
 shapiro.test(pearson_data$Murder)
 LillieTest(pearson_data$Murder)
+
+shapiro.test(pearson_data$Assault)
+LillieTest(pearson_data$Assault)
+
+## Linearity ----
+
+pearson_data %>% 
+  ggplot(aes(Murder, Assault)) +
+  geom_point()
+
+## Outliers ----
+
+pearson_data %>% 
+  ggplot(aes(Murder)) +
+  geom_boxplot()
+
+pearson_data %>% 
+  ggplot(aes(Assault)) +
+  geom_boxplot()
 
 
 # Pearson correlation -----------------------------------------------------
